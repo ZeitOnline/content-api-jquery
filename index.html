@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script type="text/javascript" src="jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="zon_api.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){ 
+      
+        var api = $("body").zon_api({
+          query:"subtitle:walfang",
+          api_key:"",
+          endpoint:"content",
+          params:{fields:"subtitle,uri"},
+          limit: 100
+        });
+      
+        api.retrieve(0, function (data){
+           console.debug("1",data.get_result());
+           
+           api.retrieve(2, function (data){
+           
+             console.debug("2",data.get_result());
+              data.get_result().matches[0].uri.retrieve(0, function(data){
+                console.debug(data.get_result());
+              });
+           });
+         });
+      });
+    </script>
+  </head>   
+  <body>
+    <h1>jQuery Plugin for the ZEIT ONLINE ContentAPI</h1>
+    <p>With this plugin you can operate the API at api.zeit.de</p>
+    <p>To initialize the API do:
+    <pre>
+      var api = $("body").zon_api({
+         query:"subtitle:walfang",
+         api_key:"[your API key]",
+         endpoint:"content",
+         params:{fields:"subtitle,uri"},
+         limit: 100
+      });
+    </pre>
+    </p>
+    <p>The you'll be able to send requests:
+    <pre>
+       api.retrieve(0, function (data){
+          
+          // The first result set
+          console.debug("1",data.get_result());
+
+          // Step up to the third result set 
+          api.retrieve(2, function (data){
+               console.debug("2",data.get_result());
+               
+               // Retrieve data form a referenced object in the third
+               // resultset
+               data.get_result().matches[0].uri.retrieve(0, function(data){
+                  console.debug(data.get_result());
+               });
+         });
+      });
+    </pre>
+
+    </p>
+    <p>
+      API-Documentation available at our<a
+          href="http://developer.zeit.de">Developer page</a>.
+    </p>
+
+
+  </body>
+</html>
