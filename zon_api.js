@@ -5,6 +5,8 @@
  * Copyright 2012 ZEIT ONLINE GmbH (technical department)
  * Released under the MIT license
  * http://jquery.org/license
+ *
+ * author: Ron Drongowski <ron.drongowski@zeit.de>
  */
 
 (function( $ ){
